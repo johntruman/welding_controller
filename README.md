@@ -1,26 +1,22 @@
 # welding_controller
 
-How to use
+<h3>How to use</h3>
 1. Rotate knob either clockwise or counter clockwise to set speed and direction of travel.
 2. Press knob to start motor.
 3. Adjust speed or direction by rotating the knob.
 4. Press knob to stop.
 
-<h1>Emergency Switch</h1>
-
+<h3>Emergency Switch</h3>
 A connector is provided for an optional emergancy stop switch. When pressed, the system will instantly halt all actions. 
 
-<b>Limit switches</b>
-
+<h3>Limit switches</h3>
 It's a good idea to have limit switches to stop the servo from running when the carriage has reached either end of the rail.
 
-<b>Changing the direction of travel</b>
-
+<h3>Changing the direction of travel</h3>
 If the direction of travel is the opposite of what is on the LCD, it can be changed easily.
 Flip the SW5 switch on the servo driver. The SW5 switch controls the spin direction of the servo.
 
-BOM
-
+<h3>BOM</h3>
 1. LCD (128x64B), 1pc,
 https://shopee.ph/LCD-1602-2004-0802-12864-I2C-Blue-Yellow-Display-Module-Acrylic-Case-IIC-Adapter-Arduino-i.20469516.827082188
 2. Prototyping PCB (7x9), 1pc,
