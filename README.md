@@ -6,15 +6,15 @@ How to use
 3. Adjust speed or direction by rotating the knob.
 4. Press knob to stop.
 
-Emergency Switch>
+<h1>Emergency Switch</h1>
 
 A connector is provided for an optional emergancy stop switch. When pressed, the system will instantly halt all actions. 
 
-Limit switches
+<b>Limit switches</b>
 
 It's a good idea to have limit switches to stop the servo from running when the carriage has reached either end of the rail.
 
-<b>Changing the direction of travel</b?
+<b>Changing the direction of travel</b>
 
 If the direction of travel is the opposite of what is on the LCD, it can be changed easily.
 Flip the SW5 switch on the servo driver. The SW5 switch controls the spin direction of the servo.
