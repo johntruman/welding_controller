@@ -14,7 +14,7 @@ It's a good idea to have limit switches to stop the servo from running when the 
 
 <h3>Changing the direction of travel</h3>
 If the direction of travel is the opposite of what is on the LCD, it can be changed easily.
-Flip the SW5 switch on the servo driver. The SW5 switch controls the spin direction of the servo.
+Flip the SW5 switch on the servo driver. 
 
 <h3>BOM</h3>
 1. LCD (128x64B), 1pc, <br>
