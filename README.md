@@ -2,7 +2,7 @@
 
 How to use
 1. Rotate knob either clockwise or counter clockwise to set speed and direction of travel.
-2. Press knob down to start motor.
+2. Press knob to start motor.
 3. Adjust speed or direction by rotating the knob.
 4. Press knob to stop.
 
