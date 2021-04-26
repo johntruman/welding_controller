@@ -14,7 +14,7 @@ Limit switches
 
 It's a good idea to have limit switches to stop the servo from running when the carriage has reached either end of the rail.
 
-Changing the direction of travel
+<b>Changing the direction of travel</b?
 
 If the direction of travel is the opposite of what is on the LCD, it can be changed easily.
 Flip the SW5 switch on the servo driver. The SW5 switch controls the spin direction of the servo.
