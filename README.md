@@ -7,12 +7,12 @@
 4. Press knob to stop.
 
 <h3>Optional Safety Switches</h3>
-<b>Emergency Switch</b><br>
+<b>Emergency Switch/E-stop</b><br>
 Provides a way to halt the machine in a panic. Connect between D2 and ground of the Arduino Nano. Switch must be <i>NORMALLY OPEN</i>.
 
-<b>Optional Limit switches</b><br>
+<b>Limit switches/Endstops</b><br>
 Adding a microswitch switches to the limit the carriage travel within a safe range. Connect the switches in parallel between D9 and ground, in <i>NORMALLY OPEN</i> position.
-
+<br>
 
 <h3>Changing the direction of travel</h3>
 If the direction of travel is the opposite of what is on the LCD, it can be changed easily.
