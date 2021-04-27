@@ -1,9 +1,9 @@
 # welding_controller
 
 <h3>How to use</h3>
-1. Rotate knob either clockwise or counter clockwise to set speed and direction of travel.
-2. Press knob to start motor.
-3. Adjust speed or direction by rotating the knob.
+1. Rotate knob either clockwise or counter clockwise to set speed and direction of travel.<br>
+2. Press knob to start motor.<br>
+3. Adjust speed or direction by rotating the knob.<br>
 4. Press knob to stop.
 
 <h3>Emergency Switch</h3>
