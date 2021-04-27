@@ -19,7 +19,7 @@ If the direction of travel is the opposite of what is on the LCD, it can be chan
 Flip the SW5 switch on the servo driver. 
 
 <h3>BOM</h3>
-1. LCD (128x64), 1pc, <br>
+1. 128x64 LCD with ST7920 driver chip, 1pc, <br>
 https://shopee.ph/LCD-1602-2004-0802-12864-I2C-Blue-Yellow-Display-Module-Acrylic-Case-IIC-Adapter-Arduino-i.20469516.827082188  <br>
 2. Prototyping PCB (7x9), 1pc,  <br>
 https://shopee.ph/PCB-Double-Sided-Prototype-Universal-Board-Experimental-Plate-DIY-Fiber-Glass-i.20469516.1481635835  <br>
