@@ -8,11 +8,11 @@
 
 <h3>Optional Safety Switches</h3>
 <b>Emergency Switch/E-stop</b><br>
-Provides a way to halt the machine in a panic. Connect between D2 and ground of the Arduino Nano. Switch must be <i>NORMALLY OPEN</i>.
-
-<b>Limit switches/Endstops</b><br>
-Adding a microswitch switches to the limit the carriage travel within a safe range. Connect the switches in parallel between D9 and ground, in <i>NORMALLY OPEN</i> position.
+Provides a way to halt the machine in a panic. Connect between D2 and ground of the Arduino Nano. Switch must be <i>NORMALLY OPEN. The Estop IO pin (D2) is active when pulled to GND.</i>
 <br>
+<b>Limit switches/Endstops</b><br>
+Limits the carriage travel within a safe range. Install microswitches at either end of the rails. Wire each switch between D9 and ground, in <i>NORMALLY OPEN</i> position.
+Inductive proximity sensors may also be used. The limit switch IO pin (D9) is actived when pulled to GRD.<br>
 
 <h3>Changing the direction of travel</h3>
 If the direction of travel is the opposite of what is on the LCD, it can be changed easily.
