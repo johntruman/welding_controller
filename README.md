@@ -16,7 +16,7 @@ Inductive proximity sensors may also be used. The limit switch IO pin (D9) is ac
 
 <h3>Changing the direction of travel</h3>
 If the direction of travel is the opposite of what is on the LCD, it can be changed easily.
-Flip the SW5 switch on the servo driver. 
+Flip the SW5 dip switch on the HBS860H servo driver. 
 
 <h3>BOM</h3>
 1. 128x64 LCD with ST7920 driver chip, 1pc, <br>
