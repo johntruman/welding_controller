@@ -19,11 +19,11 @@ If the direction of travel is the opposite of what is on the LCD, it can be chan
 Flip the SW5 dip switch on the HBS860H servo driver. 
 
 <h3>How to update the firmware</h3>
-1. Install USB Driver on a computer running Windows 7 or later. Skip this step if you've installed this before.<br>
-<a href="https://sparks.gogo.co.nz/assets/_site_/downloads/CH34x_Install_Windows_v3_4.zip">Driver for Windows</a><br>
-2. Download the latest firmware <a href="https://github.com/johntruman/welding_controller/tree/master/firmware">here</a>.<br>
-3. Download the flashing tool, <a href="https://github.com/xinabox/xLoader/releases/latest">Xloader</a>.<br>
-4. Open Xloader and load the .hex file from step 2.<br>
+1. Install USB Driver on a computer running Windows 7 or later. Skip this step if you've installed this before.<br><br>
+<a href="https://sparks.gogo.co.nz/assets/_site_/downloads/CH34x_Install_Windows_v3_4.zip">Driver for Windows</a><br><br>
+2. Download the latest firmware <a href="https://github.com/johntruman/welding_controller/tree/master/firmware">here</a>.<br><br>
+3. Download the flashing tool, <a href="https://github.com/xinabox/xLoader/releases/latest">Xloader</a>.<br><br>
+4. Open Xloader and load the .hex file from step 2.<br><br>
 5. Set XLoader as follows<br>
 <ul>
   <li><b>Device: Duemilanove/Nano(Atmega328)</b></li>
