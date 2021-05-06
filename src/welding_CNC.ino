@@ -45,6 +45,8 @@ long enc_pos  = -999;
 bool pulseState = LOW;
 bool spinDir = CW;
 bool curDir = CW;
+bool endA_triggered = false;
+bool endB_triggered = false;
 const int min_speed = MIN_STEP_RATE;
 const int max_speed = MAX_STEP_RATE;
 unsigned long currentSpeed = min_speed;           //the current speed
@@ -90,6 +92,7 @@ void refreshLCD() {
 void moveMotor(unsigned long current, unsigned long target, bool dir) { 
 
   digitalWrite(DIR_PIN,dir);
+
   long delta = target - current;
   if (isActive) {
     //Check the current speed, and accelerate or deccelerate to target speed
@@ -142,11 +145,37 @@ void eStop(){
 }
 
 void checkControls() {
+  //***********ENDSTOP*************
+  if(digitalRead(LIMIT_SW) == 0 && isActive){
+    if (spinDir == CW){
+      endA_triggered = true;      
+      endB_triggered = false;
+    } else {
+      endA_triggered = false; 
+      endB_triggered = true;
+    }    
+    isActive = false;
+  } else {    
+    endA_triggered = false; 
+    endB_triggered = false;
+  }
+
   //***********START***************
   if (digitalRead(START)==LOW && currentMillis - debounceMillis > 600){
     debounceMillis = currentMillis;
     if (!isActive){   
-      isActive = true;     
+      if(!endA_triggered && !endB_triggered){   
+        isActive = true;  
+      } else {
+        if(endA_triggered && CCW){
+          isActive = true;
+          endA_triggered = false;
+        }
+        if(endB_triggered && CW){
+          isActive = true;
+          endB_triggered = false;
+        }
+      }
     } else {      
       isActive = false;
       //softReset();
