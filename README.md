@@ -18,6 +18,18 @@ Inductive proximity sensors may also be used. The limit switch IO pin (D9) is ac
 If the direction of travel is the opposite of what is on the LCD, it can be changed easily.
 Flip the SW5 dip switch on the HBS860H servo driver. 
 
+<h3>How to update the firmware</h3>
+1. Install USB Driver on a computer running Windows 7 or later. Skip this step if you've installed this before.<br>
+<a href="https://sparks.gogo.co.nz/assets/_site_/downloads/CH34x_Install_Windows_v3_4.zip">Driver for Windows</a><br>
+2. Download the latest firmware <a href="https://github.com/johntruman/welding_controller/tree/master/firmware">here</a>.<br>
+3. Download the flashing tool, <a href="https://github.com/xinabox/xLoader/releases/latest">Xloader</a>.<br>
+4. Open Xloader and load the .hex file from step 2.<br>
+5. Set XLoader as follows<br>
+Device: Duemilanove/Nano(Atmega328)<br>
+COM port: the COM port used by the machine. <br>
+Baud rate: 115200<br>
+6. Press Upload and wait for upload to complete It shouldn't take more than about 30 seconds.<br>
+
 <h3>BOM</h3>
 1. 128x64 LCD with ST7920 driver chip, 1pc, <br>
 https://shopee.ph/LCD-1602-2004-0802-12864-I2C-Blue-Yellow-Display-Module-Acrylic-Case-IIC-Adapter-Arduino-i.20469516.827082188  <br>
