@@ -25,9 +25,11 @@ Flip the SW5 dip switch on the HBS860H servo driver.
 3. Download the flashing tool, <a href="https://github.com/xinabox/xLoader/releases/latest">Xloader</a>.<br>
 4. Open Xloader and load the .hex file from step 2.<br>
 5. Set XLoader as follows<br>
-Device: Duemilanove/Nano(Atmega328)<br>
-COM port: the COM port used by the machine. <br>
-Baud rate: 115200<br>
+<ul>
+  <li><b>Device: Duemilanove/Nano(Atmega328)</b></li>
+<li><b>COM port: the COM port used by the machine.</b></li>
+<li><b>Baud rate: 115200</b></li>
+</ul>
 6. Press Upload and wait for upload to complete It shouldn't take more than about 30 seconds.<br>
 
 <h3>BOM</h3>
