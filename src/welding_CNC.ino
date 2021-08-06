@@ -33,6 +33,10 @@
 #define LCD_RESET               12            //LCD Reset
 #define LCD_CLK                 13            //LCD E
 
+//Display Layout
+#define SX 73
+#define SY 40
+
 
 //u82g driver constructor for ST7920 in SPI mode
 U8G2_ST7920_128X64_F_SW_SPI u8g2(U8G2_R0, LCD_CLK, LCD_DATA, LCD_CS, LCD_RESET);
@@ -42,6 +46,7 @@ U8G2_ST7920_128X64_F_SW_SPI u8g2(U8G2_R0, LCD_CLK, LCD_DATA, LCD_CS, LCD_RESET);
 Encoder Enc(ENC_A, ENC_B);
 long enc_pos  = -999;
 
+bool started = 0;
 bool pulseState = LOW;
 bool spinDir = CW;
 bool curDir = CW;
@@ -60,33 +65,54 @@ unsigned long prevLcdMillis = 0;
 unsigned long currentMillis = 0;
 unsigned long debounceMillis = 600;
 long speed = 0;
+bool refreshDue = false;
+
 
 void(* softReset) (void) = 0; 
 
+void readout() {
+  int tx;
+  int t = map(targetSpeed,MIN_STEP_RATE,MAX_STEP_RATE,1,100);
+  if (t < 10) tx = 2;
+  if (t >= 10 && t<100) tx = 5;
+  if (t >= 100)  tx = 8;    
+  u8g2.setCursor(SX-tx-9,SY+12);
+  
+  u8g2.setDrawColor(1);   
+  u8g2.drawFrame(SX-20,SY+1,22,15); 
+  if(isActive){      
+    u8g2.setDrawColor(1);     
+    u8g2.drawBox(SX-19,SY+2,20,13); 
+    u8g2.setDrawColor(0);        
+    u8g2.print(t);      
+  } else {
+    u8g2.setDrawColor(0);   
+    u8g2.drawBox(SX-19,SY+2,20,13); 
+    u8g2.setDrawColor(1);       
+    u8g2.print(t);    
+  }     
+  //u8g2.sendBuffer();
+}
+
 void refreshLCD() {
-  int sx = 73;
-  int sy = 40;
-  speed = map(targetSpeed,min_speed,max_speed,0,47);
-  if(currentMillis-prevLcdMillis > 200){
-    u8g2.clearBuffer();	
-    u8g2.drawBox(56,sy+1,16,15);
+  speed = map(targetSpeed,min_speed,max_speed,0,45);
+  if(currentMillis-prevLcdMillis > 200){    
+    u8g2.setDrawColor(0);   
+    u8g2.drawBox(1,SY+1,SX-21,15);       
+    u8g2.drawBox(SX+2,SY+1,128,15);   
+    u8g2.setDrawColor(1);    
+    //u8g2.clearBuffer();
     if(targetSpeed!=min_speed+max_speed){
       if(spinDir){                    
-        u8g2.drawTriangle(sx+speed,sy,sx+speed,sy+16,sx+8+speed,sy+8);
+        u8g2.drawTriangle(SX+speed+2,SY,SX+speed+2,SY+16,SX+speed+10,SY+8);
       } else {
-        u8g2.drawTriangle(sx-18-speed,sy,sx-18-speed,sy+16,sx-26-speed,sy+8);
+        u8g2.drawTriangle(SX-speed-20,SY,SX-speed-20,SY+16,SX-speed-27,SY+8);
       }
     }
-    u8g2.sendBuffer();	    
+    readout();    
+    u8g2.sendBuffer();	
     prevLcdMillis = millis();
   }
-  	
-  //u8g2.setFont(u8g2_font_logisoso24_tf);	
-  //u8g2.drawCircle(64, 32, 14, U8G2_DRAW_ALL);  
-  
-  
-  //u8g2.drawStr(10, 50, "TEST");
-  	
 }
 
 void moveMotor(unsigned long current, unsigned long target, bool dir) { 
@@ -162,24 +188,31 @@ void checkControls() {
 
   //***********START***************
   if (digitalRead(START)==LOW && currentMillis - debounceMillis > 600){
+    #ifdef DEBUG
+    Serial.println("Start button pressed");
+    #endif           
     debounceMillis = currentMillis;
     if (!isActive){   
       if(!endA_triggered && !endB_triggered){   
-        isActive = true;  
+        isActive = true;          
+        return;
       } else {
         if(endA_triggered && CCW){
           isActive = true;
           endA_triggered = false;
+          return;
         }
         if(endB_triggered && CW){
           isActive = true;
           endB_triggered = false;
         }
-      }
+      }      
     } else {      
       isActive = false;
       //softReset();
     }
+    refreshDue = true;
+    return;
   }
 
   //***********ESTOP***************
@@ -188,33 +221,32 @@ void checkControls() {
   }
   
   //***********ENCODER***************
-    long newPos = Enc.read();
-    if (newPos != enc_pos) {      
-      refreshLCD();       
-      enc_pos = newPos;
-      if (enc_pos > 0){
-        #ifdef DEBUG
-        Serial.print("-->>");  
-        #endif
-        spinDir = CW;
-        if (enc_pos>100) enc_pos = 100;
-      }
-      if (enc_pos < 0){
-        #ifdef DEBUG
-        Serial.print("<<--");  
-        #endif
-        spinDir = CCW;
-        if (enc_pos< -100) enc_pos = -100;
-      }
-
-      long ts = map(enc_pos,-100,100,min_speed*-1,min_speed);
-      //Set target speed
-      targetSpeed = min_speed-abs(ts)+max_speed;
+  long newPos = Enc.read();
+  if (newPos != enc_pos) {         
+    enc_pos = newPos;
+    if (enc_pos > 0){
       #ifdef DEBUG
-      Serial.println(targetSpeed);
+      Serial.print("-->>");  
       #endif
-  } 
+      spinDir = CW;
+      if (enc_pos>100) enc_pos = 100;
+    }
+    if (enc_pos < 0){
+      #ifdef DEBUG
+      Serial.print("<<--");  
+      #endif
+      spinDir = CCW;
+      if (enc_pos< -100) enc_pos = -100;
+    }       
+    refreshDue = true; 
 
+    long ts = map(enc_pos,-100,100,min_speed*-1,min_speed);
+    //Set target speed
+    targetSpeed = min_speed-abs(ts)+max_speed;
+    #ifdef DEBUG
+    Serial.println(targetSpeed);
+    #endif
+  } 
 }
 
 void setup() {
@@ -227,7 +259,8 @@ void setup() {
   isActive = false;
 
   Serial.begin(115200);
-  u8g2.begin();
+  u8g2.begin();  
+  u8g2.setFont(u8g2_font_profont11_mr);	
 
   //Initailize Pins
   pinMode(ESTOP, INPUT_PULLUP);
@@ -253,4 +286,8 @@ void loop() {
   checkControls();
   moveMotor(currentSpeed, targetSpeed, spinDir);
   if(!isActive)refreshLCD();
+  if(refreshDue){
+    refreshLCD();
+    refreshDue = false;
+  }
 }
