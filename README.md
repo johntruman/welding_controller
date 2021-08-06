@@ -8,15 +8,28 @@
 
 <h3>Optional Safety Switches</h3>
 <b>Emergency Switch/E-stop</b><br>
-Provides a way to halt the machine in a panic. Connect between D2 and ground of the Arduino Nano. Switch must be <i>NORMALLY OPEN</i>.
-
-<b>Limit switches/Endstops</b><br>
-Adding a microswitch switches to the limit the carriage travel within a safe range. Connect the switches in parallel between D9 and ground, in <i>NORMALLY OPEN</i> position.
+Provides a way to halt the machine in a panic. Connect between D2 and ground of the Arduino Nano. Switch must be <i>NORMALLY OPEN</i>. The Estop IO pin (D2) is active when pulled to GND.<br>
 <br>
+<b>Limit switches/Endstops</b><br>
+Limits the carriage travel within a safe range. Install microswitches at either end of the rails. Wire each switch between D9 and ground, in <i>NORMALLY OPEN</i> position.
+Inductive proximity sensors may also be used. The limit switch IO pin (D9) is actived when pulled to GRD.<br>
 
 <h3>Changing the direction of travel</h3>
 If the direction of travel is the opposite of what is on the LCD, it can be changed easily.
-Flip the SW5 switch on the servo driver. 
+Flip the SW5 dip switch on the HBS860H servo driver. 
+
+<h3>How to update the firmware</h3>
+1. Install the <a href="https://sparks.gogo.co.nz/assets/_site_/downloads/CH34x_Install_Windows_v3_4.zip">CH340 USB driver</a> on a computer running Windows 7 or later. Skip this step if you've installed this before.<br><br>
+2. Download the latest firmware <a href="https://github.com/johntruman/welding_controller/tree/master/firmware">here</a>.<br><br>
+3. Download the flashing tool, <a href="https://github.com/xinabox/xLoader/releases/latest">Xloader</a>.<br><br>
+4. Open Xloader and load the .hex file from step 2.<br><br>
+5. Set XLoader as follows<br>
+<ul>
+  <li><b>Device: Duemilanove/Nano(Atmega328)</b></li>
+<li><b>COM port: the COM port used by the machine.</b></li>
+<li><b>Baud rate: 115200</b></li>
+</ul>
+6. Press Upload and wait for upload to complete It shouldn't take more than about 30 seconds.<br>
 
 <h3>BOM</h3>
 1. 128x64 LCD with ST7920 driver chip, 1pc, <br>
